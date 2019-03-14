@@ -130,7 +130,8 @@ def afficher_crossval(classifieurs, Y, c, plis, with_fusion = False, fusion_clas
                     plt.title(fusion_name)
                     
 def score_deux_etages(classifieurs, Y, c, n_plis, names, is_pondere=True, weight_function = lambda x: x):
-    """ Cette fonction calcul le score de précision des différents classifieurs en réalisant une cross validation à deux étages pour calculer les poids associés aux classifieurs lors du vote pondéré
+    """ Cette fonction calcul le score de précision des différents classifieurs 
+    en réalisant une cross validation à deux étages pour calculer les poids associés aux classifieurs lors du vote pondéré
     paramètres :
     - classifieurs : liste des classifieurs
     - n_plis :nombres de plis dans la première et la deuxième cross validation
@@ -167,8 +168,11 @@ def score_deux_etages(classifieurs, Y, c, n_plis, names, is_pondere=True, weight
 
 
 
-def affichage_deux_etages(classifieurs, Y, c, n_plis, fusion_name = "vote pondere", is_pondere=True, weight_function = lambda x: x):
- """ Cette fonction affiche les frontières de décision des différents classifieurs en réalisant une cross validation à deux étages pour calculer les poids associés aux classifieurs lors du vote pondéré
+def affichage_deux_etages(classifieurs, Y, c, n_plis, 
+                          fusion_name = "vote pondere", is_pondere=True, weight_function = lambda x: x):
+    """ 
+    Cette fonction affiche les frontières de décision des différents classifieurs en réalisant 
+    une cross validation à deux étages pour calculer les poids associés aux classifieurs lors du vote pondéré
     paramètres :
     - classifieurs : liste des classifieurs
     - n_plis :nombres de plis dans la première et la deuxième cross validation
@@ -176,7 +180,9 @@ def affichage_deux_etages(classifieurs, Y, c, n_plis, fusion_name = "vote ponder
     - c : labels
     - names : nom des classifieurs
     - is_pondere : indique si le vote est pondere
-    - weight_function : fonction de modification des pondérations"""
+    - weight_function : fonction de modification des pondérations
+    """
+
     n_classifieurs = len(classifieurs)
     n = c.shape[0]
     plis_niv1 =  generer_plis(n,n_plis)
@@ -211,8 +217,10 @@ def affichage_deux_etages(classifieurs, Y, c, n_plis, fusion_name = "vote ponder
             if i == 0:
                 plt.title(str(classifieurs[j]).split('(')[0])
         # frontière de décision de la fusion
-        fusion = fusion_vote_maj_binary(classifieurs, pondere = is_pondere, ponderations = weight_function(wi), is_train=True)
-        plt.subplot(n_plis, n_classifieurs +1 +1,np.ravel_multi_index((i,n_classifieurs +1),(n_plis,n_classifieurs +1 +1)) + 1)
+        fusion = fusion_vote_maj_binary(classifieurs, pondere = is_pondere, 
+                                        ponderations = weight_function(wi), is_train=True)
+        plt.subplot(n_plis, n_classifieurs +1 +1,np.ravel_multi_index((i,n_classifieurs +1),
+                                                                      (n_plis,n_classifieurs +1 +1)) + 1)
         afficher(fusion, Y)
         if i == 0:
                 plt.title(fusion_name)
